@@ -18,4 +18,4 @@ jobs:
           distribution: 'temurin'
           cache: 'maven'
       - name: Executar Testes com Maven
-        run: mvn test
+        run: mvn test -Dmaven.resources.skip=true
