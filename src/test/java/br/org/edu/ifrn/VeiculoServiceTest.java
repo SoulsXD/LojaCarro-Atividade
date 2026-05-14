@@ -26,13 +26,13 @@ public class VeiculoServiceTest {
 
     @Test
     public void testRemocaoVeiculo() {
-        boolean excluido = true;
+        boolean excluido = false;
         assertTrue(excluido, "O veículo deve ser removido com sucesso");
     }
 
     @Test
     public void testLogin() {
-        boolean logado = true;
+        boolean logado = false;
         assertTrue(logado, "O login deve ser realizado com sucesso");
     }
 }
