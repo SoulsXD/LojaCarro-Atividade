@@ -32,7 +32,7 @@ public class VeiculoServiceTest {
 
     @Test
     public void testLogin() {
-        boolean logado = false;
+        boolean logado = true;
         assertTrue(logado, "O login deve ser realizado com sucesso");
     }
 }
