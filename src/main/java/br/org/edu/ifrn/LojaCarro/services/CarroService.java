@@ -1,4 +1,3 @@
-
 package br.org.edu.ifrn.LojaCarro.services;
 
 import br.org.edu.ifrn.LojaCarro.model.Carro;
@@ -14,28 +13,39 @@ public class CarroService {
 
     @Autowired
     public CarroRepository carroRepository;
-
     public Carro save(Carro c) {
+        if (c.getPreco() != null && c.getPreco() < 0) {
+            throw new IllegalArgumentException("O preço não pode ser negativo!");
+        }
+        if (c.getModelo() == null || c.getModelo().trim().isEmpty()) {
+            throw new IllegalArgumentException("O modelo é obrigatório!");
+        }
         return carroRepository.save(c);
     }
 
-    // Novo método para deletar por ID
     public void deleteById(Long id) {
+        if (!carroRepository.existsById(id)) {
+            throw new RuntimeException("Não é possível deletar um carro inexistente!");
+        }
         carroRepository.deleteById(id);
     }
 
-    // Novo método para pesquisar por ID
     public Optional<Carro> findById(Long id) {
-        return carroRepository.findById(id);
+        Optional<Carro> carro = carroRepository.findById(id);
+        if (carro.isEmpty()) {
+            throw new RuntimeException("Carro não encontrado!");
+        }
+        return carro;
     }
 
-    // Novo método para listar todos os carros
     public List<Carro> findAll() {
         return carroRepository.findAll();
     }
 
-    // Método para atualizar (usa o save existente, mas pode ser renomeado se preferir)
     public Carro update(Carro c) {
-        return carroRepository.save(c);  // Retorna o carro salvo para feedback
+        if (!carroRepository.existsById(c.getId())) {
+            throw new RuntimeException("Não é possível atualizar um carro inexistente!");
+        }
+        return carroRepository.save(c);
     }
 }

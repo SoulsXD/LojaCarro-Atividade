@@ -8,8 +8,13 @@ public class Carro {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    String modelo;
-    int ano;
+
+    private String marca;
+    private String modelo;
+    private int ano;
+    private Double preco; // Adicionado o atributo preco aqui em cima!
+
+    // --- GETTERS E SETTERS ---
 
     public Long getId() {
         return id;
@@ -17,6 +22,14 @@ public class Carro {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public String getMarca() {
+        return marca;
+    }
+
+    public void setMarca(String marca) {
+        this.marca = marca;
     }
 
     public String getModelo() {
@@ -33,5 +46,13 @@ public class Carro {
 
     public void setAno(int ano) {
         this.ano = ano;
+    }
+
+    public Double getPreco() {
+        return preco;
+    }
+
+    public void setPreco(Double preco) {
+        this.preco = preco;
     }
 }

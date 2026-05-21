@@ -1,4 +1,3 @@
-
 package br.org.edu.ifrn.LojaCarro.controllers;
 
 import br.org.edu.ifrn.LojaCarro.model.Carro;
@@ -17,36 +16,47 @@ public class CarroController {
     @Autowired
     private CarroService carroService;
 
-    // Salvar carro (corrigido para POST)
     @PostMapping("salvar")
-    public ResponseEntity<Carro> salvarCarro(@RequestBody Carro c) {
-        Carro savedCarro = carroService.save(c);
-        return ResponseEntity.ok(savedCarro);
+    public ResponseEntity<?> salvarCarro(@RequestBody Carro c) {
+        try {
+            Carro savedCarro = carroService.save(c);
+            return ResponseEntity.ok(savedCarro); // 200 OK
+        } catch (IllegalArgumentException e) {
+            return ResponseEntity.badRequest().body(e.getLocalizedMessage()); // 400 Bad Request
+        }
     }
 
-    // Atualizar carro (por ID)
     @PutMapping("/{id}")
-    public ResponseEntity<Carro> atualizarCarro(@PathVariable Long id, @RequestBody Carro c) {
-        c.setId(id);  // Define o ID no objeto
-        Carro updatedCarro = carroService.update(c);
-        return ResponseEntity.ok(updatedCarro);
+    public ResponseEntity<?> atualizarCarro(@PathVariable Long id, @RequestBody Carro c) {
+        try {
+            c.setId(id);
+            Carro updatedCarro = carroService.update(c);
+            return ResponseEntity.ok(updatedCarro); // 200 OK
+        } catch (RuntimeException e) {
+            return ResponseEntity.notFound().build(); // 404 Not Found
+        }
     }
 
-    // Deletar carro (por ID)
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deletarCarro(@PathVariable Long id) {
-        carroService.deleteById(id);
-        return ResponseEntity.noContent().build();
+    public ResponseEntity<?> deletarCarro(@PathVariable Long id) {
+        try {
+            carroService.deleteById(id);
+            return ResponseEntity.noContent().build(); // 204 No Content (Deu certo)
+        } catch (RuntimeException e) {
+            return ResponseEntity.notFound().build(); // 404 Not Found
+        }
     }
 
-    // Pesquisar carro por ID
     @GetMapping("/{id}")
-    public ResponseEntity<Carro> pesquisarCarroPorId(@PathVariable Long id) {
-        Optional<Carro> carro = carroService.findById(id);
-        return carro.map(ResponseEntity::ok).orElse(ResponseEntity.notFound().build());
+    public ResponseEntity<?> pesquisarCarroPorId(@PathVariable Long id) {
+        try {
+            Optional<Carro> carro = carroService.findById(id);
+            return ResponseEntity.ok(carro.get()); // 200 OK
+        } catch (RuntimeException e) {
+            return ResponseEntity.notFound().build(); // 404 Not Found
+        }
     }
 
-    // Pesquisar todos os carros
     @GetMapping
     public ResponseEntity<List<Carro>> pesquisarTodosCarros() {
         List<Carro> carros = carroService.findAll();
