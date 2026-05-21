@@ -1,0 +1,4 @@
+-------------------------------------------------------------------------------
+Test set: br.org.edu.ifrn.services.VeiculoServiceTest
+-------------------------------------------------------------------------------
+Tests run: 10, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 5.662 s -- in br.org.edu.ifrn.services.VeiculoServiceTest

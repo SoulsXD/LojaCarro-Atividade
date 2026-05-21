@@ -1,0 +1,5 @@
+br\org\edu\ifrn\LojaCarro\services\CarroService.class
+br\org\edu\ifrn\LojaCarro\model\Carro.class
+br\org\edu\ifrn\LojaCarro\LojaCarroApplication.class
+br\org\edu\ifrn\LojaCarro\controllers\CarroController.class
+br\org\edu\ifrn\LojaCarro\repository\CarroRepository.class

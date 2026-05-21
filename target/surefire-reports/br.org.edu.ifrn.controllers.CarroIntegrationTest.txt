@@ -1,0 +1,4 @@
+-------------------------------------------------------------------------------
+Test set: br.org.edu.ifrn.controllers.CarroIntegrationTest
+-------------------------------------------------------------------------------
+Tests run: 10, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 35.37 s -- in br.org.edu.ifrn.controllers.CarroIntegrationTest
