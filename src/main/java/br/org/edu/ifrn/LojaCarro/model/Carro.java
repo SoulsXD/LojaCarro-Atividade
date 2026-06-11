@@ -1,6 +1,10 @@
 package br.org.edu.ifrn.LojaCarro.model;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Pattern;
+import jakarta.validation.constraints.Size;
 
 @Entity
 public class Carro {
@@ -9,12 +13,21 @@ public class Carro {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @NotBlank(message = "A marca não pode ser vazia")
+    @Size(max = 50, message = "A marca é muito grande")
+    @Pattern(regexp = "^[a-zA-Z0-9À-ÿ ]+$", message = "Caracteres especiais não permitidos (Proteção XSS)")
     private String marca;
-    private String modelo;
-    private int ano;
-    private Double preco; // Adicionado o atributo preco aqui em cima!
 
-    // --- GETTERS E SETTERS ---
+    @NotBlank(message = "O modelo não pode ser vazio")
+    @Size(max = 50, message = "O modelo é muito grande")
+    @Pattern(regexp = "^[a-zA-Z0-9À-ÿ ]+$", message = "Caracteres especiais não permitidos (Proteção XSS)")
+    private String modelo;
+
+    @NotNull(message = "O ano é obrigatório")
+    private Integer ano;
+
+    @NotNull(message = "O preço é obrigatório")
+    private Double preco;
 
     public Long getId() {
         return id;
@@ -40,11 +53,11 @@ public class Carro {
         this.modelo = modelo;
     }
 
-    public int getAno() {
+    public Integer getAno() {
         return ano;
     }
 
-    public void setAno(int ano) {
+    public void setAno(Integer ano) {
         this.ano = ano;
     }
 

@@ -4,7 +4,9 @@ import br.org.edu.ifrn.LojaCarro.model.Carro;
 import br.org.edu.ifrn.LojaCarro.services.CarroService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
+import jakarta.validation.Valid;
 
 import java.util.List;
 import java.util.Optional;
@@ -17,7 +19,8 @@ public class CarroController {
     private CarroService carroService;
 
     @PostMapping("salvar")
-    public ResponseEntity<?> salvarCarro(@RequestBody Carro c) {
+    @PreAuthorize("hasAnyAuthority('GERENTE', 'VENDEDOR')")
+    public ResponseEntity<?> salvarCarro(@RequestBody @Valid Carro c) {
         try {
             Carro savedCarro = carroService.save(c);
             return ResponseEntity.ok(savedCarro); // 200 OK
@@ -27,6 +30,7 @@ public class CarroController {
     }
 
     @PutMapping("/{id}")
+    @PreAuthorize("hasAuthority('GERENTE')")
     public ResponseEntity<?> atualizarCarro(@PathVariable Long id, @RequestBody Carro c) {
         try {
             c.setId(id);
@@ -38,6 +42,7 @@ public class CarroController {
     }
 
     @DeleteMapping("/{id}")
+    @PreAuthorize("hasAuthority('GERENTE')")
     public ResponseEntity<?> deletarCarro(@PathVariable Long id) {
         try {
             carroService.deleteById(id);
