@@ -23,9 +23,9 @@ public class CarroController {
     public ResponseEntity<?> salvarCarro(@RequestBody @Valid Carro c) {
         try {
             Carro savedCarro = carroService.save(c);
-            return ResponseEntity.ok(savedCarro); // 200 OK
+            return ResponseEntity.ok(savedCarro);
         } catch (IllegalArgumentException e) {
-            return ResponseEntity.badRequest().body(e.getLocalizedMessage()); // 400 Bad Request
+            return ResponseEntity.badRequest().body(e.getLocalizedMessage());
         }
     }
 
@@ -35,9 +35,9 @@ public class CarroController {
         try {
             c.setId(id);
             Carro updatedCarro = carroService.update(c);
-            return ResponseEntity.ok(updatedCarro); // 200 OK
+            return ResponseEntity.ok(updatedCarro);
         } catch (RuntimeException e) {
-            return ResponseEntity.notFound().build(); // 404 Not Found
+            return ResponseEntity.notFound().build();
         }
     }
 
@@ -46,9 +46,9 @@ public class CarroController {
     public ResponseEntity<?> deletarCarro(@PathVariable Long id) {
         try {
             carroService.deleteById(id);
-            return ResponseEntity.noContent().build(); // 204 No Content (Deu certo)
+            return ResponseEntity.noContent().build();
         } catch (RuntimeException e) {
-            return ResponseEntity.notFound().build(); // 404 Not Found
+            return ResponseEntity.notFound().build();
         }
     }
 
@@ -56,9 +56,9 @@ public class CarroController {
     public ResponseEntity<?> pesquisarCarroPorId(@PathVariable Long id) {
         try {
             Optional<Carro> carro = carroService.findById(id);
-            return ResponseEntity.ok(carro.get()); // 200 OK
+            return ResponseEntity.ok(carro.get());
         } catch (RuntimeException e) {
-            return ResponseEntity.notFound().build(); // 404 Not Found
+            return ResponseEntity.notFound().build();
         }
     }
 
