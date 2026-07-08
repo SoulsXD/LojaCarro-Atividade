@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="pt"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>CarroController.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">LojaCarro</a> &gt; <a href="index.source.html" class="el_package">br.org.edu.ifrn.LojaCarro.controllers</a> &gt; <span class="el_source">CarroController.java</span></div><h1>CarroController.java</h1><pre class="source lang-java linenums">package br.org.edu.ifrn.LojaCarro.controllers;
+
+import br.org.edu.ifrn.LojaCarro.model.Carro;
+import br.org.edu.ifrn.LojaCarro.services.CarroService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+import java.util.Optional;
+
+@RestController
+@RequestMapping(&quot;/carro&quot;)
+<span class="fc" id="L14">public class CarroController {</span>
+
+    @Autowired
+    private CarroService carroService;
+
+    @PostMapping(&quot;salvar&quot;)
+    public ResponseEntity&lt;?&gt; salvarCarro(@RequestBody Carro c) {
+        try {
+<span class="fc" id="L22">            Carro savedCarro = carroService.save(c);</span>
+<span class="fc" id="L23">            return ResponseEntity.ok(savedCarro); // 200 OK</span>
+<span class="fc" id="L24">        } catch (IllegalArgumentException e) {</span>
+<span class="fc" id="L25">            return ResponseEntity.badRequest().body(e.getLocalizedMessage()); // 400 Bad Request</span>
+        }
+    }
+
+    @PutMapping(&quot;/{id}&quot;)
+    public ResponseEntity&lt;?&gt; atualizarCarro(@PathVariable Long id, @RequestBody Carro c) {
+        try {
+<span class="fc" id="L32">            c.setId(id);</span>
+<span class="fc" id="L33">            Carro updatedCarro = carroService.update(c);</span>
+<span class="fc" id="L34">            return ResponseEntity.ok(updatedCarro); // 200 OK</span>
+<span class="fc" id="L35">        } catch (RuntimeException e) {</span>
+<span class="fc" id="L36">            return ResponseEntity.notFound().build(); // 404 Not Found</span>
+        }
+    }
+
+    @DeleteMapping(&quot;/{id}&quot;)
+    public ResponseEntity&lt;?&gt; deletarCarro(@PathVariable Long id) {
+        try {
+<span class="fc" id="L43">            carroService.deleteById(id);</span>
+<span class="fc" id="L44">            return ResponseEntity.noContent().build(); // 204 No Content (Deu certo)</span>
+<span class="fc" id="L45">        } catch (RuntimeException e) {</span>
+<span class="fc" id="L46">            return ResponseEntity.notFound().build(); // 404 Not Found</span>
+        }
+    }
+
+    @GetMapping(&quot;/{id}&quot;)
+    public ResponseEntity&lt;?&gt; pesquisarCarroPorId(@PathVariable Long id) {
+        try {
+<span class="fc" id="L53">            Optional&lt;Carro&gt; carro = carroService.findById(id);</span>
+<span class="fc" id="L54">            return ResponseEntity.ok(carro.get()); // 200 OK</span>
+<span class="fc" id="L55">        } catch (RuntimeException e) {</span>
+<span class="fc" id="L56">            return ResponseEntity.notFound().build(); // 404 Not Found</span>
+        }
+    }
+
+    @GetMapping
+    public ResponseEntity&lt;List&lt;Carro&gt;&gt; pesquisarTodosCarros() {
+<span class="nc" id="L62">        List&lt;Carro&gt; carros = carroService.findAll();</span>
+<span class="nc" id="L63">        return ResponseEntity.ok(carros);</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.12.202403310830</span></div></body></html>

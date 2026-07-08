@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="pt"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>CarroService.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">LojaCarro</a> &gt; <a href="index.source.html" class="el_package">br.org.edu.ifrn.LojaCarro.services</a> &gt; <span class="el_source">CarroService.java</span></div><h1>CarroService.java</h1><pre class="source lang-java linenums">package br.org.edu.ifrn.LojaCarro.services;
+
+import br.org.edu.ifrn.LojaCarro.model.Carro;
+import br.org.edu.ifrn.LojaCarro.repository.CarroRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import java.util.List;
+import java.util.Optional;
+
+@Service
+<span class="fc" id="L12">public class CarroService {</span>
+
+    @Autowired
+    public CarroRepository carroRepository;
+    public Carro save(Carro c) {
+<span class="pc bpc" id="L17" title="1 of 4 branches missed.">        if (c.getPreco() != null &amp;&amp; c.getPreco() &lt; 0) {</span>
+<span class="fc" id="L18">            throw new IllegalArgumentException(&quot;O preço não pode ser negativo!&quot;);</span>
+        }
+<span class="pc bpc" id="L20" title="1 of 4 branches missed.">        if (c.getModelo() == null || c.getModelo().trim().isEmpty()) {</span>
+<span class="fc" id="L21">            throw new IllegalArgumentException(&quot;O modelo é obrigatório!&quot;);</span>
+        }
+<span class="fc" id="L23">        return carroRepository.save(c);</span>
+    }
+
+    public void deleteById(Long id) {
+<span class="fc bfc" id="L27" title="All 2 branches covered.">        if (!carroRepository.existsById(id)) {</span>
+<span class="fc" id="L28">            throw new RuntimeException(&quot;Não é possível deletar um carro inexistente!&quot;);</span>
+        }
+<span class="fc" id="L30">        carroRepository.deleteById(id);</span>
+<span class="fc" id="L31">    }</span>
+
+    public Optional&lt;Carro&gt; findById(Long id) {
+<span class="fc" id="L34">        Optional&lt;Carro&gt; carro = carroRepository.findById(id);</span>
+<span class="fc bfc" id="L35" title="All 2 branches covered.">        if (carro.isEmpty()) {</span>
+<span class="fc" id="L36">            throw new RuntimeException(&quot;Carro não encontrado!&quot;);</span>
+        }
+<span class="fc" id="L38">        return carro;</span>
+    }
+
+    public List&lt;Carro&gt; findAll() {
+<span class="nc" id="L42">        return carroRepository.findAll();</span>
+    }
+
+    public Carro update(Carro c) {
+<span class="fc bfc" id="L46" title="All 2 branches covered.">        if (!carroRepository.existsById(c.getId())) {</span>
+<span class="fc" id="L47">            throw new RuntimeException(&quot;Não é possível atualizar um carro inexistente!&quot;);</span>
+        }
+<span class="fc" id="L49">        return carroRepository.save(c);</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.12.202403310830</span></div></body></html>
