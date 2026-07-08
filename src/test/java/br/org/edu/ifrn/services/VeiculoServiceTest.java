@@ -16,7 +16,7 @@ public class VeiculoServiceTest {
 
     @Autowired
     private CarroService carroService;
-    // PAR 1: VALIDAÇÃO DE PREÇO
+
     @Test
     public void deveSalvarCarroComPrecoValido() {
         Carro carro = new Carro();
@@ -42,7 +42,6 @@ public class VeiculoServiceTest {
         });
     }
 
-    // PAR 2: VALIDAÇÃO DE MODELO
     @Test
     public void deveSalvarCarroComModeloPreenchido() {
         Carro carro = new Carro();
@@ -67,7 +66,7 @@ public class VeiculoServiceTest {
             carroService.save(carro);
         });
     }
-    // PAR 3: BUSCAR POR ID
+
     @Test
     public void deveBuscarCarroComSucessoQuandoIdExistir() {
         Carro carro = new Carro();
@@ -88,7 +87,6 @@ public class VeiculoServiceTest {
         });
     }
 
-    // PAR 4: ATUALIZAR
     @Test
     public void deveAtualizarCarroComSucessoQuandoIdExistir() {
         Carro carro = new Carro();
@@ -115,7 +113,6 @@ public class VeiculoServiceTest {
         });
     }
 
-    // PAR 5: EXCLUSÃO
     @Test
     public void deveDeletarCarroComSucessoQuandoIdExistir() {
         Carro carro = new Carro();
